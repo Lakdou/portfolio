@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Lakdar Karabadja</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- DESIGN SYSTEM SAINT-GOBAIN --- */
+        :root {
+            --sg-blue-dark: #00529b;
+            --sg-blue-light: #00a5d2;
+            --sg-green: #84bd00;
+            --sg-gray-bg: #f4f6f9;
+            --sg-gradient: linear-gradient(135deg, var(--sg-blue-dark) 0%, var(--sg-blue-light) 100%);
+        }
+
+        body { font-family: 'Roboto', sans-serif; background-color: var(--sg-gray-bg); color: #444; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Poppins', sans-serif; }
+
+        /* --- LOGIQUE BILINGUE --- */
+        .lang-en { display: none; }
+        body.english-mode .lang-fr { display: none; }
+        body.english-mode .lang-en { display: inline-block; }
+        body.english-mode div.lang-en, body.english-mode p.lang-en, body.english-mode ul.lang-en { display: block; }
+
+        /* --- NAVIGATION --- */
+        .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-bottom: 3px solid var(--sg-blue-light); }
+        .navbar-brand { font-weight: 700; color: var(--sg-blue-dark) !important; }
+        .nav-link { color: var(--sg-blue-dark) !important; font-weight: 500; margin-left: 15px; cursor: pointer; }
+        .nav-link:hover { color: var(--sg-blue-light) !important; }
+        
+        /* Bouton de langue */
+        .btn-lang { border: 2px solid var(--sg-blue-dark); color: var(--sg-blue-dark); font-weight: bold; border-radius: 20px; padding: 2px 12px; transition: 0.3s; }
+        .btn-lang:hover { background: var(--sg-blue-dark); color: white; }
+
+        /* --- HERO --- */
+        .hero-section { background: var(--sg-gradient); padding: 160px 0 120px; color: white; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        .hero-badge { background: rgba(255, 255, 255, 0.2); padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; display: inline-block; margin-bottom: 25px; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .btn-hero { background: white; color: var(--sg-blue-dark); padding: 12px 35px; border-radius: 50px; font-weight: 700; box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: 0.3s; border: none; margin-top: 20px; text-decoration: none; display: inline-block;}
+        .btn-hero:hover { transform: translateY(-3px); background-color: #f0f0f0; color: var(--sg-blue-dark); }
+
+        /* --- UI ELEMENTS --- */
+        .section-header { margin-bottom: 60px; position: relative; display: inline-block; }
+        .section-header h2 { font-weight: 700; color: var(--sg-blue-dark); }
+        .section-header::after { content: ''; display: block; width: 60px; height: 5px; background: var(--sg-green); margin: 15px auto 0; border-radius: 3px; }
+
+        .card-custom { background: white; border: none; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 82, 155, 0.05); transition: 0.4s; height: 100%; border-top: 5px solid transparent; }
+        .card-custom:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0, 82, 155, 0.12); border-top: 5px solid var(--sg-blue-light); }
+
+        .badge-sg { padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
+        .badge-blue { background: #e3f2fd; color: var(--sg-blue-dark); border: 1px solid #bbdefb; }
+        .badge-green { background: #e8f5e9; color: var(--sg-green); border: 1px solid #c8e6c9; }
+        .badge-purple { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
+        .badge-orange { background: #fff3e0; color: #e65100; border: 1px solid #ffe0b2; }
+
+        .icon-box { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.4rem; flex-shrink: 0; }
+        .icon-blue { background: rgba(0, 165, 210, 0.1); color: var(--sg-blue-light); }
+        .icon-dark { background: rgba(0, 82, 155, 0.1); color: var(--sg-blue-dark); }
+        .icon-green { background: rgba(132, 189, 0, 0.1); color: var(--sg-green); }
+
+        .skill-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: 0.3s; }
+        .skill-card:hover { transform: translateY(-5px); }
+
+        /* Style spécifique pour les Soft Skills */
+        .soft-skill-pill {
+            background: white; border: 1px solid #e0e0e0; padding: 10px 20px; border-radius: 50px;
+            margin: 10px; display: inline-flex; align-items: center; font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .soft-skill-pill:hover { transform: translateY(-3px); border-color: var(--sg-green); color: var(--sg-green); }
+        .soft-skill-pill i { margin-right: 10px; color: var(--sg-blue-light); }
+
+        footer { background: var(--sg-blue-dark); color: white; padding: 60px 0; border-top: 5px solid var(--sg-green); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-layer-group me-2" style="color: var(--sg-blue-light);"></i>
+                Lakdar Karabadja <span style="color: var(--sg-green);">.</span>
+            </a>
+            
+            <div class="d-flex align-items-center">
+                <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">
+                            <span class="lang-fr">Expérience</span><span class="lang-en">Experience</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#formation">
+                            <span class="lang-fr">Formations</span><span class="lang-en">Education</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projets">
+                            <span class="lang-fr">Projets</span><span class="lang-en">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#competences">
+                            <span class="lang-fr">Compétences</span><span class="lang-en">Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <button class="btn btn-lang" onclick="toggleLanguage()">
+                            <span class="lang-fr">EN</span><span class="lang-en">FR</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-center">
+        <div class="container" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="hero-badge">
+                <span class="lang-fr">Saint-Gobain Experience & Ingénieur IA</span>
+                <span class="lang-en">Saint-Gobain Experience & AI Engineer</span>
+            </div>
+            <h1 class="display-3 fw-bold mb-3">
+                <span class="lang-fr">Développeur Data & Intelligence Artificielle</span>
+                <span class="lang-en">Data & Artificial Intelligence Developer</span>
+            </h1>
+            <p class="lead mb-5 opacity-75" style="max-width: 800px; margin: 0 auto;">
+                <span class="lang-fr">
+                    Expertise hybride : <strong>Data Engineering</strong> (SQL/Databricks), <strong>Business Apps</strong> (Power Platform) et <strong>IA Avancée</strong> (NLP/Deep Learning).
+                    <br>Actuellement en poste chez Saint-Gobain sur des projets stratégiques de digitalisation.
+                </span>
+                <span class="lang-en">
+                    Hybrid expertise: <strong>Data Engineering</strong> (SQL/Databricks), <strong>Business Apps</strong> (Power Platform) and <strong>Advanced AI</strong> (NLP/Deep Learning).
+                    <br>Currently working at Saint-Gobain on strategic digitalization projects.
+                </span>
+            </p>
+            <a href="#projets" class="btn btn-hero">
+                <span class="lang-fr">Voir mes réalisations</span>
+                <span class="lang-en">View my projects</span>
+            </a>
+        </div>
+    </header>
+
+    <section id="experience" class="py-5">
+        <div class="container mt-4">
+            <div class="text-center section-header" data-aos="fade-up">
+                <h2>
+                    <span class="lang-fr">Parcours Professionnel</span>
+                    <span class="lang-en">Professional Experience</span>
+                </h2>
+            </div>
+            
+            <div class="row justify-content-center g-4">
+                
+                <div class="col-lg-10" data-aos="fade-right">
+                    <div class="card-custom p-4 border-start border-5 border-success">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-box icon-green me-3">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h4 fw-bold mb-0 text-dark">Data Engineer / Dev</h3>
+                                    <div class="text-muted fw-bold">Saint-Gobain Expertise et Solution</div>
+                                </div>
+                            </div>
+                            <span class="badge bg-success bg-opacity-10 text-success mt-2 mt-md-0 p-2 border border-success">
+                                <span class="lang-fr">Sept 2024 - Aujourd'hui</span>
+                                <span class="lang-en">Sept 2024 - Present</span>
+                            </span>
+                        </div>
+                        <div class="lang-fr">
+                            <p class="text-secondary">
+                                En charge de la digitalisation du reporting des économies (Savings). Migration de la logique métier vers le backend pour une fiabilité accrue.
+                                Optimisation des pipelines de données entre Databricks et MicroStrategy.
+                            </p>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-secondary">
+                                In charge of digitizing the savings reporting process. Migrating business logic to the backend for increased reliability.
+                                Optimizing data pipelines between Databricks and MicroStrategy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10" data-aos="fade-right" data-aos-delay="100">
+                    <div class="card-custom p-4 border-start border-5 border-secondary">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-box icon-dark me-3">
+                                    <i class="fa-solid fa-industry"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h4 fw-bold mb-0 text-dark">
+                                        <span class="lang-fr">Développeur / Data Analyst</span>
+                                        <span class="lang-en">Developer / Data Analyst</span>
+                                    </h3>
+                                    <div class="text-muted fw-bold">Saint-Gobain Abrasifs</div>
+                                </div>
+                            </div>
+                            <span class="badge bg-light text-dark mt-2 mt-md-0 p-2 border">Sept 2023 - Sept 2024</span>
+                        </div>
+                        <div class="lang-fr">
+                            <p class="text-secondary">
+                                Conception et développement d'applications métiers (Power Platform) pour l'analyse concurrentielle.
+                                Mise en place de dashboards décisionnels intégrant les dimensions Performance, Finance et RSE.
+                            </p>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-secondary">
+                                Design and development of business applications (Power Platform) for competitive analysis.
+                                Implementation of decision-making dashboards integrating Performance, Finance, and CSR dimensions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="formation" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center section-header" data-aos="fade-up">
+                <h2>
+                    <span class="lang-fr">Formations & Diplômes</span>
+                    <span class="lang-en">Education & Degrees</span>
+                </h2>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="card-custom p-4 h-100 border-top border-5 border-success">
+                        <div class="mb-3 text-center">
+                            <div class="icon-box icon-green mx-auto rounded-circle" style="width: 70px; height: 70px;">
+                                <i class="fa-solid fa-user-graduate fa-2x"></i>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold text-center" style="color: var(--sg-blue-dark);">
+                            <span class="lang-fr">Ingénieur IA</span>
+                            <span class="lang-en">AI Engineer</span>
+                        </h4>
+                        <div class="text-center text-muted fw-bold mb-2">DataScientest</div>
+                        <hr class="mx-auto w-25 text-success">
+                        <p class="text-secondary text-center small lang-fr">
+                            Spécialisation en Intelligence Artificielle, Machine Learning et Deep Learning. Validation via projets industriels (NLP, Computer Vision).
+                        </p>
+                        <p class="text-secondary text-center small lang-en">
+                            Specialization in Artificial Intelligence, Machine Learning, and Deep Learning. Validation through industrial projects (NLP, Computer Vision).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card-custom p-4 h-100 border-top border-5 border-primary">
+                        <div class="mb-3 text-center">
+                            <div class="icon-box icon-blue mx-auto rounded-circle" style="width: 70px; height: 70px;">
+                                <i class="fa-solid fa-laptop-code fa-2x"></i>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold text-center" style="color: var(--sg-blue-dark);">
+                            <span class="lang-fr">Licence Dév. App</span>
+                            <span class="lang-en">Bachelor's Degree</span>
+                        </h4>
+                        <div class="text-center text-muted fw-bold mb-2">ESIEE IT</div>
+                        <hr class="mx-auto w-25 text-primary">
+                        <p class="text-secondary text-center small lang-fr">
+                            Conception et développement d'applications sécurisées. Maîtrise du cycle de vie logiciel et gestion de projet agile.
+                        </p>
+                        <p class="text-secondary text-center small lang-en">
+                            Design and development of secure applications. Mastery of the software lifecycle and agile project management.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card-custom p-4 h-100 border-top border-5 border-secondary">
+                        <div class="mb-3 text-center">
+                            <div class="icon-box icon-dark mx-auto rounded-circle" style="width: 70px; height: 70px;">
+                                <i class="fa-solid fa-code fa-2x"></i>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold text-center" style="color: var(--sg-blue-dark);">BTS SIO SLAM</h4>
+                        <div class="text-center text-muted fw-bold mb-2">ESIEE IT</div>
+                        <hr class="mx-auto w-25 text-secondary">
+                        <p class="text-secondary text-center small lang-fr">
+                            Solutions Logicielles et Applications Métiers. Solides bases en algorithmique, développement et bases de données.
+                        </p>
+                        <p class="text-secondary text-center small lang-en">
+                            Software Solutions and Business Applications. Strong foundations in algorithms, development, and databases.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projets" class="py-5">
+        <div class="container">
+            <div class="text-center section-header" data-aos="fade-up">
+                <h2>
+                    <span class="lang-fr">Réalisations & Projets</span>
+                    <span class="lang-en">Projects & Achievements</span>
+                </h2>
+            </div>
+
+            <div class="row g-4">
+                
+                <div class="col-lg-12" data-aos="fade-up">
+                    <div class="card-custom p-4 bg-white border-0" style="border-top: 5px solid var(--sg-green);">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-md-7">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-box icon-green me-3">
+                                        <i class="fa-solid fa-robot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="fw-bold mb-0" style="color: var(--sg-blue-dark);">
+                                            <span class="lang-fr">IA : Analyse de Sentiments (NLP)</span>
+                                            <span class="lang-en">AI: Sentiment Analysis (NLP)</span>
+                                        </h4>
+                                        <small class="text-muted fw-bold">
+                                            <span class="lang-fr">Projet Diplôme Ingénieur | DataScientest</span>
+                                            <span class="lang-en">Engineering Degree Project | DataScientest</span>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="lang-fr">
+                                    <p class="text-secondary small">
+                                        Développement d'un modèle d'IA pour prédire la satisfaction client à partir de 1M de commentaires Amazon.
+                                        Comparaison de modèles (LightGBM vs Deep Learning) et déploiement d'une interface web.
+                                    </p>
+                                </div>
+                                <div class="lang-en">
+                                    <p class="text-secondary small">
+                                        Development of an AI model to predict customer satisfaction from 1M Amazon reviews.
+                                        Comparison of models (LightGBM vs Deep Learning) and deployment of a web interface.
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="badge-sg badge-purple">Python / Keras</span>
+                                    <span class="badge-sg badge-blue">LightGBM</span>
+                                    <span class="badge-sg badge-green">SHAP (XAI)</span>
+                                </div>
+                                
+                                <a href="https://datascientest-trustpilot.streamlit.app/" target="_blank" class="btn btn-sm btn-success rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="fa-solid fa-play me-2"></i>
+                                    <span class="lang-fr">Tester le modèle en direct</span>
+                                    <span class="lang-en">Test the model live</span>
+                                </a>
+                            </div>
+
+                            <div class="col-md-5 mt-4 mt-md-0 ps-md-4 border-start border-2">
+                                <h6 class="fw-bold text-primary mb-3">
+                                    <span class="lang-fr">Architecture Technique :</span>
+                                    <span class="lang-en">Technical Architecture:</span>
+                                </h6>
+                                <ul class="list-unstyled small text-muted">
+                                    <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i><strong>Preprocessing :</strong> Tokenization, TF-IDF, PCA.</li>
+                                    <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i><strong>Models :</strong> Random Forest, CNN 1D, LSTM + GloVe.</li>
+                                    <li><i class="fa-solid fa-check text-success me-2"></i><strong>Deploy :</strong> Streamlit Cloud.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-custom p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="icon-box icon-dark">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                            <span class="badge bg-success text-white">
+                                <span class="lang-fr">Poste Actuel</span>
+                                <span class="lang-en">Current Role</span>
+                            </span>
+                        </div>
+                        
+                        <h4 class="fw-bold" style="color: var(--sg-blue-dark);">Savings Report Digitalization</h4>
+                        <div class="lang-fr">
+                            <p class="text-muted flex-grow-1 small">
+                                Automatisation du calcul des économies pour les lignes industrielles (Float, Miroir, Coater). 
+                                Focus sur l'optimisation ETL et la fiabilité des données financières.
+                            </p>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-muted flex-grow-1 small">
+                                Automation of savings calculation for industrial lines (Float, Mirror, Coater).
+                                Focus on ETL optimization and financial data reliability.
+                            </p>
+                        </div>
+
+                        <div class="bg-light p-3 rounded mb-3 border-start border-3 border-dark">
+                            <small class="fw-bold text-dark d-block mb-1">Stack Data :</small>
+                            <small class="text-muted">SQL Databricks • MicroStrategy • SharePoint</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-custom p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="icon-box icon-blue">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <span class="badge bg-secondary">2023 - 2024</span>
+                        </div>
+                        
+                        <h4 class="fw-bold" style="color: var(--sg-blue-dark);">
+                            <span class="lang-fr">App Comparateur Concurrentiel</span>
+                            <span class="lang-en">Competitor Analysis App</span>
+                        </h4>
+                        <div class="lang-fr">
+                            <p class="text-muted flex-grow-1 small">
+                                Application métier pour comparer les produits Saint-Gobain vs Concurrence.
+                                Visualisation des KPIs sur 3 axes stratégiques.
+                            </p>
+                        </div>
+                        <div class="lang-en">
+                            <p class="text-muted flex-grow-1 small">
+                                Business application to compare Saint-Gobain products vs Competition.
+                                KPI visualization on 3 strategic axes.
+                            </p>
+                        </div>
+
+                        <div class="d-flex gap-3 mb-3">
+                            <span class="badge bg-light text-primary border"><i class="fa-solid fa-gauge me-1"></i> Perf.</span>
+                            <span class="badge bg-light text-warning border"><i class="fa-solid fa-euro-sign me-1"></i> Finance</span>
+                            <span class="badge bg-light text-success border"><i class="fa-solid fa-leaf me-1"></i> <span class="lang-fr">Éco</span><span class="lang-en">Eco</span></span>
+                        </div>
+                        
+                        <div>
+                            <span class="badge-sg badge-purple">Power Apps</span>
+                            <span class="badge-sg badge-blue">Power BI</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center section-header" data-aos="fade-up">
+                <h2>
+                    <span class="lang-fr">Compétences</span>
+                    <span class="lang-en">Skills & Expertise</span>
+                </h2>
+            </div>
+
+            <div class="row g-4 text-center">
+                
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="skill-card h-100">
+                        <i class="fa-solid fa-server fa-3x mb-3" style="color: var(--sg-blue-dark);"></i>
+                        <h5 class="fw-bold">Data Engineering</h5>
+                        <hr class="mx-auto w-25 text-primary">
+                        <ul class="list-unstyled text-muted small">
+                            <li>SQL (Advanced)</li>
+                            <li>Databricks / Spark</li>
+                            <li>ETL Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="skill-card h-100">
+                        <i class="fa-solid fa-microchip fa-3x mb-3" style="color: var(--sg-green);"></i>
+                        <h5 class="fw-bold">Data Science & IA</h5>
+                        <hr class="mx-auto w-25 text-success">
+                        <ul class="list-unstyled text-muted small">
+                            <li>Python (Pandas, NumPy)</li>
+                            <li>Deep Learning (Keras)</li>
+                            <li>NLP & Text Mining</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="skill-card h-100">
+                        <i class="fa-brands fa-microsoft fa-3x mb-3" style="color: #7b1fa2;"></i>
+                        <h5 class="fw-bold">Business Apps</h5>
+                        <hr class="mx-auto w-25" style="color: #7b1fa2;">
+                        <ul class="list-unstyled text-muted small">
+                            <li>Power Apps</li>
+                            <li>Power Automate</li>
+                            <li>Power BI / DAX</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-5 justify-content-center text-center">
+                <div class="col-12 mb-3">
+                    <h5 class="text-uppercase text-muted fw-bold small">
+                        <span class="lang-fr">Savoir-Être & Méthodologie</span>
+                        <span class="lang-en">Soft Skills & Methodology</span>
+                    </h5>
+                </div>
+                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="300">
+                    
+                    <div class="soft-skill-pill">
+                        <i class="fa-solid fa-comments"></i> 
+                        <span class="lang-fr">Communication Transverse</span>
+                        <span class="lang-en">Cross-functional Communication</span>
+                    </div>
+
+                    <div class="soft-skill-pill">
+                        <i class="fa-solid fa-lightbulb"></i> 
+                        <span class="lang-fr">Esprit Analytique</span>
+                        <span class="lang-en">Analytical Mindset</span>
+                    </div>
+
+                    <div class="soft-skill-pill">
+                        <i class="fa-solid fa-users"></i> 
+                        <span class="lang-fr">Travail d'Équipe</span>
+                        <span class="lang-en">Teamwork</span>
+                    </div>
+
+                    <div class="soft-skill-pill">
+                        <i class="fa-solid fa-arrows-rotate"></i> 
+                        <span class="lang-fr">Agilité & Adaptabilité</span>
+                        <span class="lang-en">Agility & Adaptability</span>
+                    </div>
+
+                    <div class="soft-skill-pill">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> 
+                        <span class="lang-fr">Résolution de Problèmes</span>
+                        <span class="lang-en">Problem Solving</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact" class="text-center">
+        <div class="container" data-aos="flip-up">
+            <h3 class="fw-bold mb-4">
+                <span class="lang-fr">Prêt à collaborer ?</span>
+                <span class="lang-en">Ready to collaborate?</span>
+            </h3>
+            <p class="mb-4 text-white-50">
+                <span class="lang-fr">Profil complet : Expérience Saint-Gobain & Ingénierie IA.</span>
+                <span class="lang-en">Complete profile: Saint-Gobain Experience & AI Engineering.</span>
+            </p>
+            <a href="mailto:ton-email@exemple.com" class="btn btn-outline-light rounded-pill px-5 py-2 fw-bold">
+                <span class="lang-fr">Me Contacter</span>
+                <span class="lang-en">Contact Me</span>
+            </a>
+            <div class="mt-5 pt-3 border-top border-secondary opacity-50">
+                <small>&copy; 2025 - Lakdar Karabadja.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialisation Animation
+        AOS.init({ duration: 800, once: true, offset: 100 });
+
+        // Script de gestion de langue
+        function toggleLanguage() {
+            const body = document.body;
+            body.classList.toggle('english-mode');
+            
+            const isEnglish = body.classList.contains('english-mode');
+            localStorage.setItem('language', isEnglish ? 'en' : 'fr');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang === 'en') {
+                document.body.classList.add('english-mode');
+            }
+        });
+    </script>
+</body>
+</html>
